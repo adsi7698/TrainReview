@@ -1,0 +1,72 @@
+{% load static from staticfiles %}
+<! DOCTYPE html>
+<html lang="en">
+<head>
+    <title>C.R.I.S INTERN</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--<style>
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 40%;
+      margin: auto;
+  }-->
+    <style>
+        body {overflow-x: hidden;}
+    </style>
+</head>
+<body>
+    <!-- Navbar inverse fixed -->
+    <nav class="nav navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    C.R.I.S <small> INTERN</small>
+                </a>
+            </div>
+            <!-- right navbar for sign in and log in -->
+            {% if user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form action="{% url 'Passengers:logout_view' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">logout</button>
+                    </form>
+                </li>
+                <li>
+                    <form action="{% url 'Passengers:review_view' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Review</button>
+                    </form>
+                </li>
+                <li><a href=" {% url 'index' %} "><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li><a href="/Passengers/PassengerProfile/"><span class="glyphicon glyphicon-profile"></span> Profile</a></li>
+            </ul>
+            {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/Passengers/PassengerSignup/"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="/Passengers/PassengerLogin/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!--<nav class="navbar navbar-default" style="margin-bottom: 0;"></nav>-->
+    <div class="row" style="background-image:url('{% static 'background3.jpg' %}');">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <br><br><br><br><br><br>
+            <h1>Welcome {{ user.username }}! <br>You are logged in !</h1>
+        </div>
+        <div class="col-md-5">
+            <img src="{% static 'TrainSwagat.jpg' %}" alt="CRIS Welcomes you !">
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <hr>
+    {% include 'footer.html' %}
+</body>
+</html>
